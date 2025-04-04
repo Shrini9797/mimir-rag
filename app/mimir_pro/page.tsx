@@ -4,11 +4,20 @@ import type React from "react"
 
 import { useState } from "react"
 import Link from "next/link"
-import { ArrowLeft, CheckCircle } from "lucide-react"
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+
+// Updated dynamic imports:
+const ArrowLeft = dynamic(() =>
+  import("lucide-react").then(mod => mod.ArrowLeft)
+, { ssr: false }) as React.FC<{ className?: string }>;
+
+const CheckCircle = dynamic(() =>
+  import("lucide-react").then(mod => mod.CheckCircle)
+, { ssr: false }) as React.FC<{ className?: string }>;
 
 export default function MimirProPage() {
   const [formState, setFormState] = useState({
@@ -26,11 +35,33 @@ export default function MimirProPage() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In a real app, you would send this data to your backend
-    console.log("Form submitted:", formState)
-    setSubmitted(true)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("onSubmit fired - Mimir Pro form submitted with:", formState); // Added logging at start
+    try {
+      const endpoint = window.location.origin + '/api/leads'; // use absolute URL
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullname: formState.name,
+          company: formState.company,
+          email: formState.email,
+          plan: 'Mimir Pro',
+          pricing: '$1,999/month',
+          comment: '',
+        }),
+      });
+      console.log("Mimir Pro form POST response:", response.status);
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        const errorData = await response.json();
+        console.error("Error in Mimir Pro submission:", errorData);
+      }
+    } catch (error) {
+      console.error("Mimir Pro fetch error:", error);
+    }
   }
 
   return (
@@ -107,7 +138,7 @@ export default function MimirProPage() {
                     </li>
                   </ul>
                 </div>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-white">
                       Name
@@ -152,7 +183,8 @@ export default function MimirProPage() {
                     />
                   </div>
                   <Button
-                    type="submit"
+                    type="button" // set to "button" to avoid native form submission
+                    onClick={handleSubmit} // ensure our handleSubmit is called on click
                     className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 hover:opacity-90"
                   >
                     Submit

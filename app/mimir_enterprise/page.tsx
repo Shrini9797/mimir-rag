@@ -1,10 +1,21 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
-import { ArrowLeft, CheckCircle } from "lucide-react"
+import dynamic from "next/dynamic"
+
+// Updated dynamic imports using async arrow functions:
+const ArrowLeft = dynamic(async () => {
+  const mod = await import("lucide-react");
+  return mod.ArrowLeft;
+}, { ssr: false });
+
+const CheckCircle = dynamic(async () => {
+  const mod = await import("lucide-react");
+  return mod.CheckCircle;
+}, { ssr: false });
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -17,23 +28,45 @@ export default function MimirEnterprisePage() {
     company: "",
     email: "",
     requirements: "",
-  })
-
-  const [submitted, setSubmitted] = useState(false)
+  });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState({
       ...formState,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In a real app, you would send this data to your backend
-    console.log("Form submitted:", formState)
-    setSubmitted(true)
-  }
+  // Updated handleSubmit to match mimir and mimir_pro pages
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("onSubmit fired - Mimir Enterprise form submitted with:", formState);
+    try {
+      const endpoint = window.location.origin + '/api/leads';
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullname: formState.name,
+          company: formState.company,
+          email: formState.email,
+          plan: 'Mimir Enterprise',
+          pricing: 'Custom pricing',
+          comment: formState.requirements,  // additional field for comments
+        }),
+      });
+      console.log("Mimir Enterprise form response:", response.status);
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        const errorData = await response.json();
+        console.error("Error in Mimir Enterprise submission:", errorData);
+      }
+    } catch (error) {
+      console.error("Mimir Enterprise fetch error:", error);
+    }
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
@@ -42,7 +75,6 @@ export default function MimirEnterprisePage() {
           <ArrowLeft className="h-4 w-4" />
           Back to Home
         </Link>
-
         <div className="mx-auto max-w-md">
           {!submitted ? (
             <Card className="bg-gray-950 border-gray-800">
@@ -109,65 +141,26 @@ export default function MimirEnterprisePage() {
                     </li>
                   </ul>
                 </div>
+                {/* Changed form: attach onSubmit */}
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name" className="text-white">
-                      Name
-                    </Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      placeholder="Your name"
-                      required
-                      value={formState.name}
-                      onChange={handleChange}
-                      className="bg-gray-900 border-gray-700 text-white"
-                    />
+                    <Label htmlFor="name" className="text-white">Name</Label>
+                    <Input id="name" name="name" placeholder="Your name" required value={formState.name} onChange={handleChange} className="bg-gray-900 border-gray-700 text-white" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="company" className="text-white">
-                      Company
-                    </Label>
-                    <Input
-                      id="company"
-                      name="company"
-                      placeholder="Your company"
-                      required
-                      value={formState.company}
-                      onChange={handleChange}
-                      className="bg-gray-900 border-gray-700 text-white"
-                    />
+                    <Label htmlFor="company" className="text-white">Company</Label>
+                    <Input id="company" name="company" placeholder="Your company" required value={formState.company} onChange={handleChange} className="bg-gray-900 border-gray-700 text-white" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-white">
-                      Email
-                    </Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="your.email@example.com"
-                      required
-                      value={formState.email}
-                      onChange={handleChange}
-                      className="bg-gray-900 border-gray-700 text-white"
-                    />
+                    <Label htmlFor="email" className="text-white">Email</Label>
+                    <Input id="email" name="email" type="email" placeholder="your.email@example.com" required value={formState.email} onChange={handleChange} className="bg-gray-900 border-gray-700 text-white" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="requirements" className="text-white">
-                      Specific Requirements (Optional)
-                    </Label>
-                    <Textarea
-                      id="requirements"
-                      name="requirements"
-                      placeholder="Tell us about your specific security or deployment requirements"
-                      value={formState.requirements}
-                      onChange={handleChange}
-                      className="bg-gray-900 border-gray-700 text-white min-h-[100px]"
-                    />
+                    <Label htmlFor="requirements" className="text-white">Specific Requirements (Optional)</Label>
+                    <Textarea id="requirements" name="requirements" placeholder="Tell us about your specific security or deployment requirements" value={formState.requirements} onChange={handleChange} className="bg-gray-900 border-gray-700 text-white min-h-[100px]" />
                   </div>
                   <Button
-                    type="submit"
+                    type="submit" // change to submit so that handleSubmit receives the event
                     className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 hover:opacity-90"
                   >
                     Submit
@@ -204,6 +197,6 @@ export default function MimirEnterprisePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 

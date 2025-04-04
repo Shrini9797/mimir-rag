@@ -1,10 +1,12 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
-import { ArrowLeft, CheckCircle } from "lucide-react"
+import dynamic from "next/dynamic"
+// Replace direct import with dynamic imports to avoid webpack_require__.n error
+const ArrowLeft = dynamic(() => import("lucide-react").then(mod => mod.ArrowLeft), { ssr: false });
+const CheckCircle = dynamic(() => import("lucide-react").then(mod => mod.CheckCircle), { ssr: false });
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -26,11 +28,27 @@ export default function ContactPage() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // In a real app, you would send this data to your backend
-    console.log("Form submitted:", formState)
-    setSubmitted(true)
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullname: formState.name,
+          company: formState.company,
+          email: formState.email,
+          plan: 'Contact Demo',
+          pricing: '',
+          comment: '',
+        }),
+      })
+      if (response.ok) {
+        setSubmitted(true)
+      }
+    } catch (error) {
+      console.error('Error submitting lead:', error)
+    }
   }
 
   return (

@@ -4,34 +4,67 @@ import type React from "react"
 
 import { useState } from "react"
 import Link from "next/link"
-import { ArrowLeft, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import dynamic from "next/dynamic";
+
+// Replace previous dynamic import with this:
+const ArrowLeft = dynamic<React.ComponentType<{ className?: string }>>(
+  () => Promise.resolve(require("lucide-react").ArrowLeft),
+  { ssr: false }
+);
+const CheckCircle = dynamic<React.ComponentType<{ className?: string }>>(
+  () => Promise.resolve(require("lucide-react").CheckCircle),
+  { ssr: false }
+);
 
 export default function MimirPage() {
   const [formState, setFormState] = useState({
     name: "",
     company: "",
     email: "",
-  })
+  });
 
-  const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormState({
       ...formState,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In a real app, you would send this data to your backend
-    console.log("Form submitted:", formState)
-    setSubmitted(true)
-  }
+  // Updated handleSubmit to match mimir_pro method
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("onSubmit fired - Mimir form submitted with:", formState);
+    try {
+      const endpoint = window.location.origin + '/api/leads';
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullname: formState.name,
+          company: formState.company,
+          email: formState.email,
+          plan: 'Mimir Standard',
+          pricing: '$499/month',
+          comment: 'Get Started from Mimir page',
+        }),
+      });
+      console.log("Mimir form response:", response.status);
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        const errorData = await response.json();
+        console.error("Error in Mimir submission:", errorData);
+      }
+    } catch (error) {
+      console.error("Mimir fetch error:", error);
+    }
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
@@ -107,6 +140,7 @@ export default function MimirPage() {
                     </li>
                   </ul>
                 </div>
+                {/* Changed form: attach onSubmit */}
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-white">
@@ -152,7 +186,7 @@ export default function MimirPage() {
                     />
                   </div>
                   <Button
-                    type="submit"
+                    type="submit" // change to submit so that handleSubmit receives the event
                     className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 hover:opacity-90"
                   >
                     Submit
@@ -189,6 +223,6 @@ export default function MimirPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
