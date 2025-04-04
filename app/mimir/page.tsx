@@ -10,15 +10,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import dynamic from "next/dynamic";
 
-// Replace previous dynamic import with this:
-const ArrowLeft = dynamic<React.ComponentType<{ className?: string }>>(
-  () => Promise.resolve(require("lucide-react").ArrowLeft),
-  { ssr: false }
-);
-const CheckCircle = dynamic<React.ComponentType<{ className?: string }>>(
-  () => Promise.resolve(require("lucide-react").CheckCircle),
-  { ssr: false }
-);
+// Replace dynamic import declarations with a cast to React.FC<{ className?: string }>
+const ArrowLeft = dynamic(() =>
+  Promise.resolve(require("lucide-react").ArrowLeft)
+, { ssr: false }) as React.FC<{ className?: string }>;
+const CheckCircle = dynamic(() =>
+  Promise.resolve(require("lucide-react").CheckCircle)
+, { ssr: false }) as React.FC<{ className?: string }>;
 
 export default function MimirPage() {
   const [formState, setFormState] = useState({
@@ -70,7 +68,7 @@ export default function MimirPage() {
     <div className="flex min-h-screen flex-col bg-black text-white">
       <div className="container py-12">
         <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-8">
-          <ArrowLeft className="h-4 w-4" />
+          <(ArrowLeft as React.FC<{ className?: string }>) className="h-4 w-4" />
           Back to Home
         </Link>
 
