@@ -18,6 +18,9 @@ const CheckCircle = dynamic(() =>
   Promise.resolve(require("lucide-react").CheckCircle)
 , { ssr: false }) as React.FC<{ className?: string }>;
 
+// Add this near the top, after importing ArrowLeft:
+const ArrowLeftComponent = ArrowLeft as React.FC<{ className?: string }>;
+
 export default function MimirPage() {
   const [formState, setFormState] = useState({
     name: "",
@@ -68,7 +71,7 @@ export default function MimirPage() {
     <div className="flex min-h-screen flex-col bg-black text-white">
       <div className="container py-12">
         <Link href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white mb-8">
-          <(ArrowLeft as React.FC<{ className?: string }>) className="h-4 w-4" />
+          <ArrowLeftComponent className="h-4 w-4" />
           Back to Home
         </Link>
 
