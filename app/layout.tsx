@@ -4,10 +4,10 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
-  title: "Mimir - Privacy-first AI",
-  description: "Discover Mimir, the world's most advanced secure private AI assistant. Experience innovative technology with uncompromising data privacy and tailored solutions for your business.",
-  keywords: "Mimir, AI assistant, privacy, secure data, privacy-first, RAG, compliance, innovation",
-  generator: 'bucket',
+  title: "BucketLabs.ai - The Future of Private AI",
+  description: "BucketLabs.ai - We build AI that keeps your data private. Get smarter business tools without giving up control of your information.",
+  keywords: "BucketLabs, private AI, RAG, LLMs, Mimir, enterprise AI, privacy-first, secure AI, artificial intelligence",
+  generator: 'BucketLabs.ai',
   icons: {
     icon: '/bucket.png',
   },

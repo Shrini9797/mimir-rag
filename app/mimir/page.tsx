@@ -50,9 +50,9 @@ export default function MimirPage() {
           fullname: formState.name,
           company: formState.company,
           email: formState.email,
-          plan: 'Mimir Standard',
+          plan: 'Mimir RAG - BucketLabs Product',
           pricing: '$499/month',
-          comment: 'Get Started from Mimir page',
+          comment: 'Interest in Mimir RAG from BucketLabs.ai website - Redirect to newmimir.com',
         }),
       });
       console.log("Mimir form response:", response.status);
@@ -82,11 +82,12 @@ export default function MimirPage() {
                 <CardTitle className="text-2xl text-white">
                   Thank you for your interest in{" "}
                   <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 text-transparent bg-clip-text font-bold">
-                    Mimir
+                    Mimir Platform
                   </span>
+                  {" "}by BucketLabs.ai
                 </CardTitle>
                 <CardDescription className="text-gray-400">
-                  Simply fill out this form and we'll be in touch.
+                  Experience AI-powered document intelligence with enterprise security. Visit <a href="https://newmimir.com" target="_blank" className="text-cyan-400 hover:underline">newmimir.com</a> to get started.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -209,7 +210,7 @@ export default function MimirPage() {
               <CardContent>
                 <p className="text-white mb-4">Thank you for your interest! We will reach out to you shortly.</p>
                 <p className="text-gray-400">
-                  A member of our team will contact you at {formState.email} to schedule your demo of Mimir.
+                  A member of our team will contact you at {formState.email} to schedule your demo of Mimir RAG. You can also visit <a href="https://newmimir.com" target="_blank" className="text-cyan-400 hover:underline">newmimir.com</a> directly.
                 </p>
               </CardContent>
               <CardFooter>

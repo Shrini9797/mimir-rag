@@ -51,7 +51,7 @@ export default function MimirEnterprisePage() {
           fullname: formState.name,
           company: formState.company,
           email: formState.email,
-          plan: 'Mimir Enterprise',
+          plan: 'Mimir Enterprise - BucketLabs Product',
           pricing: 'Custom pricing',
           comment: formState.requirements,  // additional field for comments
         }),

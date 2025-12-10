@@ -47,7 +47,7 @@ export default function MimirProPage() {
           fullname: formState.name,
           company: formState.company,
           email: formState.email,
-          plan: 'Mimir Pro',
+          plan: 'Mimir Pro - BucketLabs Product',
           pricing: '$1,999/month',
           comment: '',
         }),

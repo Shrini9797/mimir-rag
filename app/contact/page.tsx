@@ -38,9 +38,9 @@ export default function ContactPage() {
           fullname: formState.name,
           company: formState.company,
           email: formState.email,
-          plan: 'Contact Demo',
+          plan: 'BucketLabs Enterprise Inquiry',
           pricing: '',
-          comment: '',
+          comment: 'Contact form submission from BucketLabs.ai website',
         }),
       })
       if (response.ok) {
@@ -66,11 +66,11 @@ export default function ContactPage() {
                 <CardTitle className="text-2xl text-white">
                   Thank you for your interest in{" "}
                   <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 text-transparent bg-clip-text font-bold">
-                    Mimir
+                    BucketLabs.ai
                   </span>
                 </CardTitle>
                 <CardDescription className="text-gray-400">
-                  Simply fill out this form and we'll be in touch.
+                  Simply fill out this form and we'll be in touch to discuss how our private AI solutions can help your enterprise.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -120,7 +120,7 @@ export default function ContactPage() {
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 hover:opacity-90"
+                    className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
                     Submit
                   </Button>
@@ -141,12 +141,12 @@ export default function ContactPage() {
               <CardContent>
                 <p className="text-white mb-4">Thank you for your interest! We will reach out to you shortly.</p>
                 <p className="text-gray-400">
-                  A member of our team will contact you at {formState.email} to schedule your demo of Mimir.
+                  A member of our team will contact you at {formState.email} to discuss how BucketLabs.ai can help transform your enterprise with secure AI solutions.
                 </p>
               </CardContent>
               <CardFooter>
                 <Link href="/" className="w-full">
-                  <Button className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 hover:opacity-90">
+                  <Button className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                     Return to Home
                   </Button>
                 </Link>
