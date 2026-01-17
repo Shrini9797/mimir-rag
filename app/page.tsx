@@ -90,7 +90,7 @@ export default function Home() {
               features: ["AI Semantic Search", "Zero-retention AI", "Document Analysis"],
               bgColor: "bg-gradient-to-r from-purple-600/10 via-violet-600/10 to-purple-600/10",
               borderColor: "border-purple-500/20",
-              link: "https://newmimir.com",
+              link: "https://mimirchat.ai",
               isLive: true,
               badge: "Available Now"
             },
@@ -205,7 +205,7 @@ export default function Home() {
               From our flagship <span className="font-semibold text-purple-400">Mimir</span> knowledge management platform to upcoming innovations in secure AI,
               BucketLabs.ai transforms how enterprises handle intelligent document analysis while maintaining complete privacy and control.
             </p>
-            <Link href="https://newmimir.com" target="_blank">
+            <Link href="https://mimirchat.ai" target="_blank">
               <Button className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                 Try Mimir Platform →
               </Button>
@@ -234,7 +234,7 @@ export default function Home() {
               </CardDescription>
             </CardHeader>
             <CardFooter>
-              <Link href="https://newmimir.com" target="_blank" className="w-full">
+              <Link href="https://mimirchat.ai" target="_blank" className="w-full">
                 <Button className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                   Start Free Trial →
                 </Button>
@@ -275,7 +275,7 @@ export default function Home() {
               Turn your documents into smart, searchable knowledge while keeping everything completely private and secure.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Link href="https://newmimir.com" target="_blank">
+              <Link href="https://mimirchat.ai" target="_blank">
                 <Button
                   className="h-11 px-8 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
@@ -330,7 +330,7 @@ export default function Home() {
               <h3 className="text-sm font-medium">Products</h3>
               <ul className="mt-4 space-y-2">
                 <li>
-                  <Link href="https://newmimir.com" target="_blank" className="text-sm text-gray-400 hover:text-cyan-500 transition-colors">
+                  <Link href="https://mimirchat.ai" target="_blank" className="text-sm text-gray-400 hover:text-cyan-500 transition-colors">
                     Mimir Platform
                   </Link>
                 </li>

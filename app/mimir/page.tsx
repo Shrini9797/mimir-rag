@@ -52,7 +52,7 @@ export default function MimirPage() {
           email: formState.email,
           plan: 'Mimir RAG - BucketLabs Product',
           pricing: '$499/month',
-          comment: 'Interest in Mimir RAG from BucketLabs.ai website - Redirect to newmimir.com',
+          comment: 'Interest in Mimir RAG from BucketLabs.ai website - Redirect to mimirchat.ai',
         }),
       });
       console.log("Mimir form response:", response.status);
@@ -87,7 +87,7 @@ export default function MimirPage() {
                   {" "}by BucketLabs.ai
                 </CardTitle>
                 <CardDescription className="text-gray-400">
-                  Experience AI-powered document intelligence with enterprise security. Visit <a href="https://newmimir.com" target="_blank" className="text-cyan-400 hover:underline">newmimir.com</a> to get started.
+                  Experience AI-powered document intelligence with enterprise security. Visit <a href="https://mimirchat.ai" target="_blank" className="text-cyan-400 hover:underline">mimirchat.ai</a> to get started.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -210,7 +210,7 @@ export default function MimirPage() {
               <CardContent>
                 <p className="text-white mb-4">Thank you for your interest! We will reach out to you shortly.</p>
                 <p className="text-gray-400">
-                  A member of our team will contact you at {formState.email} to schedule your demo of Mimir RAG. You can also visit <a href="https://newmimir.com" target="_blank" className="text-cyan-400 hover:underline">newmimir.com</a> directly.
+                  A member of our team will contact you at {formState.email} to schedule your demo of Mimir RAG. You can also visit <a href="https://mimirchat.ai" target="_blank" className="text-cyan-400 hover:underline">mimirchat.ai</a> directly.
                 </p>
               </CardContent>
               <CardFooter>
